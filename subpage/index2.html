@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Parallax Background Scroll</title>
+  <style>
+    body, html {
+      margin: 0;
+      padding: 0;
+    }
+
+    section {
+      height: 100vh;
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 3rem;
+      font-weight: bold;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6);
+    }
+
+    .bg1 {
+      background-image: url('1.jpg');
+    }
+
+    .bg2 {
+      background-image: url('2.jpg');
+    }
+
+    .bg3 {
+      background-image: url('3.jpg');
+    }
+
+    .content {
+      color: #333;
+      padding: 5rem 2rem;
+      font-size: 1.2rem;
+      line-height: 1.8;
+    }
+
+    .text-invert {
+      color: white;
+      mix-blend-mode: difference;
+    }
+
+    image-container {
+      position: relative;
+      height: 100vh;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    img {
+      width: 400px;
+      transform: translateX(100%);
+      transition: transform 1s ease-out;
+      opacity: 0;
+    }
+
+    .in-view {
+      transform: translateX(0);
+      opacity: 1;
+    }
+
+  </style>
+</head>
+<body>
+
+  <section class="bg1">
+    背景一
+    <div class="content text-invert">
+      <p>这是段内容段落，用于分隔背景。</p>
+    </div>
+  </section>
+  
+
+  <section class="bg2">
+    背景二
+    <div class="content text-invert">
+      <p>你可以在这里添加更多介绍或页面正文。</p>
+    </div>
+    <div class="image-container">
+      <img id="scroll-image" src="https://images.unsplash.com/photo-1611095564980-9d0b3c0dd7e3" alt="demo" />
+    </div>
+  </section>
+  
+
+  <section class="bg3">
+    背景三
+    <div class="content text-invert">
+      <p>滚动到底部了，这是结束部分。</p>
+    </div>
+  </section>
+
+  <script>
+    const image = document.getElementById('scroll-image');
+
+    window.addEventListener('scroll', () => {
+      const rect = image.getBoundingClientRect();
+      const triggerPoint = window.innerHeight * 0.75;
+
+      if (rect.top < triggerPoint) {
+        image.classList.add('in-view');
+      }
+    });
+  </script>
+
+</body>
+</html>

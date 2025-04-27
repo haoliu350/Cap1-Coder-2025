@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mario Jumping Demo</title>
+  <!-- Link to external CSS (or you can use a <style> block) -->
+  <link rel="stylesheet" href="styles.css" />
+  <style type="text/css">
+    /* Scene container styling */
+    .scene {
+      position: relative;
+      width: 100%;
+      max-width: 600px;           /* optional: constrain width on large screens */
+      height: 250px;              /* height of the scene (space for jump) */
+      margin: 50px auto;          /* center horizontally with some top/bottom margin */
+      background: #5C94FC;        /* sky-blue background for contrast */
+      overflow: hidden;           /* hide anything out of bounds (if needed) */
+    }
+
+    /* Sprite images (Mario and block) */
+    .sprite {
+      position: absolute;
+      width: 80px;                /* scale up from 16px to ~5x size for clarity */
+      image-rendering: pixelated; /* preserve crisp pixels when scaled */
+      image-rendering: crisp-edges; /* fallback for some browsers */
+    }
+
+    /* Position the block near the top center of the scene */
+    #block {
+      top: 20px;                  /* distance from top of container */
+      left: 50%;
+      transform: translateX(-50%);/* center the block horizontally */
+    }
+
+    /* Position Mario at the bottom center to start */
+    #mario {
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      /* Apply the jumping animation */
+      animation: jump 1s infinite;
+    }
+
+    /* Keyframes for Mario's jump */
+    @keyframes jump {
+      /* Start on ground */
+      0% {
+        bottom: 0;
+        animation-timing-function: ease-out;   /* ease-out for upward movement */
+      }
+      /* Mid-jump peak (Mario’s head hits the block) */
+      50% {
+        bottom: 70px;  /* peak height of jump (adjust to meet the block) */
+        animation-timing-function: ease-in;    /* ease-in for downward movement */
+      }
+      /* Back to ground */
+      100% {
+        bottom: 0;
+        /* (no timing-function needed here for end of cycle) */
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Container for the animation -->
+  <div class="scene">
+    <!-- Gold question-mark block sprite -->
+    <img id="block" class="sprite" src="https://mario.fandom.com/wiki/Special:FilePath/Question_Block_SMB_sprite.png" alt="Question Block" />
+    <!-- Mario sprite -->
+    <img id="mario" class="sprite" src="https://mario.fandom.com/wiki/Special:FilePath/SMB_Small_Mario_Jumping_Sprite.png" alt="Mario" />
+  </div>
+
+</body>
+</html>
