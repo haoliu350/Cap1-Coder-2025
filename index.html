@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8">
+  <title>Parallax Scrolling</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    .section {
+      height: 100vh;
+      background-position: center center;
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-attachment: fixed; 
+    }
+    .section1 { background-image: url('bg-1.jpg'); }
+    .section2 { background-image: url('bg-2.jpg'); }
+    .section3 { background-image: url('bg-3.jpg'); }
+    .section4 { background-image: url('bg-4.jpg'); }
+
+    .floating {
+      position: fixed;
+      top: 30%; 
+      right: -1000px; 
+      transition: right 1s ease; 
+      z-index: 1;
+      height: 200px;
+    }
+    /* 滑入后的位置 */
+    .floating.show {
+      right: 130px; 
+    }
+
+    #slideImg {
+      width: 25%;               
+      position: sticky;           
+      top: 100px;                  
+      bottom: 100px;
+      right: 20px;                
+      transform: translateX(100%);
+      transition: transform 0.5s ease-out; 
+    }
+    #slideImg.visible {
+      transform: translateX(0); 
+    }
+
+    .text-invert {
+      color: white;
+      mix-blend-mode: difference;
+    }
+
+
+  </style>
+</head>
+<body>
+
+  <div class="section section1">
+    <img id="slideImg" style="transform: translateX(150%);" src="cap1_coders.png" >
+  </div>
+
+
+  <div class="section section2">
+    <img id="slideImg" src="coding-kid.png" >
+
+  </div>
+
+  <div class="section section3">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/9/98/Capital_One_logo.svg" class="floating">
+  </div>
+
+  <div class="section section4">
+    <p style="float: right; padding-right: 15%; font-size: 30px; top: 50%; " class="text-invert">
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed id purus at ligula imperdiet sagittis malesuada eget diam. Vivamus venenatis eros eget enim consequat varius. Suspendisse interdum arcu ut massa aliquet tristique. Integer at commodo purus, eu eleifend felis. Fusce hendrerit sit amet magna vitae lacinia. Ut viverra imperdiet ex, vel condimentum dui maximus nec. Maecenas id feugiat nunc. Vestibulum ut pellentesque ligula. Nam sit amet purus iaculis, viverra neque quis, tempus lectus. Integer pharetra enim molestie ipsum suscipit, in convallis diam dignissim. Curabitur euismod sodales ullamcorper. Quisque viverra faucibus odio a dictum. Etiam nunc neque, molestie condimentum rutrum non, vulputate ac nunc. Pellentesque vestibulum convallis neque eu tempor. In efficitur, massa id egestas imperdiet, est felis efficitur arcu, eget accumsan elit nunc in tellus. Pellentesque ac est ac est commodo viverra eget dignissim nisl.
+      </p>
+  </div>
+
+
+
+  <script>
+    const floatImg = document.querySelector('.floating');
+    window.addEventListener('scroll', function() {
+      if (window.scrollY > window.innerHeight + 1000) {
+        floatImg.classList.add('show');
+      } else {
+        floatImg.classList.remove('show');
+      }
+    });
+
+    document.addEventListener('DOMContentLoaded', function() {
+      var slideImg = document.getElementById('slideImg');
+      var section2 = document.getElementById('section2');
+
+      var observer = new IntersectionObserver(function(entries) {
+        entries.forEach(function(entry) {
+          if (entry.isIntersecting) {
+            slideImg.classList.add('visible');
+          }
+        });
+      }, { threshold: 0 });
+      observer.observe(section2);
+    });
+  </script>
+</body>
+</html>
